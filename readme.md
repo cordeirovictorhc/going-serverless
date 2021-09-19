@@ -37,3 +37,15 @@ Serviço estável para trabalhar com multinuvens na AWS
 
 - [Serverless Framework](https://www.serverless.com/)
 - Ver alguns exemplos de utilização em `demo02.../run.sh`
+
+## Demo03: Image Analysis with Amazon Rekognition
+
+- Iniciar serviço e instalar AWS SDK
+
+```(bash)
+npm init -y
+npm i aws-sdk
+```
+
+- Invoke simulando request com arquivo local:
+  - `sls invoke local -f img-analysis --path request.json`
