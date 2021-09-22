@@ -1,0 +1,65 @@
+service: trigger-dynamodb
+
+frameworkVersion: "2"
+
+variablesResolutionMode: 20210326
+configValidationMode: error
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  environment:
+    DYNAMODB_TABLE: Heroes
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Resource: "arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+          Action:
+            - dynamodb:GetItem
+            - dynamodb:UpdateItem
+            - dynamodb:PutItem
+            - dynamodb:ListStreams
+            - dynamodb:DescribeStream
+
+resources:
+  Resources:
+    HeroesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: name
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+          - AttributeName: name
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1 # Quanto maior, mais poder de processamento e mais caro
+          WriteCapacityUnits: 1 # Quanto maior, mais poder de processamento e mais caro
+        StreamSpecification: # Ativa trigger
+          StreamViewType: NEW_AND_OLD_IMAGES # dispara o trigger em tudo que for novo ou alterado na tabela Heroes
+
+functions:
+  hero-insert:
+    handler: handler.heroesInsert
+    events:
+      - http:
+          path: heroes
+          method: post
+          cors: true
+
+  hero-trigger:
+    handler: handler.heroesTrigger
+    events:
+      - stream:
+          type: dynamodb
+          arn:
+            Fn::GetAtt: # busca o arn definido em HeroesTable
+              - HeroesTable
+              - StreamArn

@@ -1,0 +1,40 @@
+{
+  "Records": [
+    {
+      "eventID": "876aa44d6bd7a34616b2219ba334d71d",
+      "eventName": "INSERT",
+      "eventVersion": "1.1",
+      "eventSource": "aws:dynamodb",
+      "awsRegion": "us-east-1",
+      "dynamodb": {
+        "ApproximateCreationDateTime": 1632318456,
+        "Keys": {
+          "name": {
+            "S": "Silvio"
+          },
+          "id": {
+            "S": "a53208c0-1bab-11ec-a75f-c58b9ffd34f7"
+          }
+        },
+        "NewImage": {
+          "createdAt": {
+            "S": "2021-09-22T13:47:36.652Z"
+          },
+          "name": {
+            "S": "Silvio"
+          },
+          "id": {
+            "S": "a53208c0-1bab-11ec-a75f-c58b9ffd34f7"
+          },
+          "power": {
+            "S": "Super Fun"
+          }
+        },
+        "SequenceNumber": "2339700000000019471160408",
+        "SizeBytes": 143,
+        "StreamViewType": "NEW_AND_OLD_IMAGES"
+      },
+      "eventSourceARN": "arn:aws:dynamodb:us-east-1:632432874210:table/Heroes/stream/2021-09-22T13:42:28.011"
+    }
+  ]
+}

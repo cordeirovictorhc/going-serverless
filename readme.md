@@ -49,3 +49,4 @@ npm i aws-sdk
 
 - Invoke simulando request com arquivo local:
   - `sls invoke local -f img-analysis --path request.json`
+- [Serverless Yaml Docs](https://www.serverless.com/framework/docs/providers/aws/guide/serverless.yml/)
