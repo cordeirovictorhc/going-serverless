@@ -6,9 +6,9 @@ const decoratorValidator = (fn, schema, argsType) => {
   return async function (event) {
     const data = JSON.parse(event[argsType]);
 
-    // abort early = mostrar todos os erros juntos
+    // abort early: false = mostrar todos os erros juntos
     const { error, value } = await schema.validate(data, {
-      abortEarly: true,
+      abortEarly: false,
     });
 
     // atualiza a instancia de arguments
@@ -18,7 +18,7 @@ const decoratorValidator = (fn, schema, argsType) => {
     if (!error) return fn.apply(this, arguments);
 
     return {
-      statusCode: 422,
+      statusCode: 422, // unprocessable entity
       body: error.message,
     };
   };

@@ -1,5 +1,7 @@
 # Serverless com AWS
 
+- Não usar sua conta root para desenvolvimento pois tem acesso a tudo; criar subcontas usando **IAM**
+
 ## Limitações e Preços
 
 - **Dependências**
@@ -9,10 +11,6 @@
   - VPC pode aumentar o tempo de Cold Start
   - O preço aumenta de acordo com o tempo de utilização de cada requisição (recomendado máx 10s cada)
   - [Cold Starts in AWS Lambda](https://mikhail.io/serverless/coldstarts/aws/)
-
-## Boas Práticas
-
-- Não usar sua conta root para desenvolvimento pois tem acesso a tudo; criar subcontas usando **IAM**
 
 # S3
 
@@ -55,3 +53,15 @@ npm i aws-sdk
 
 - Invoke com opção de ambiente:
   - `sls invoke local -f commit-message-scheduler -s prod`
+
+# AWS Lambda Layers
+
+- Executar nossos apps no runtime da AWS Lambda
+- Ao criar um pacote especializado NodeJS, ele precisa estar dentro de uma pasta nodejs e lá estarão todas as dependências necessárias em outras lambdas
+- Não é uma boa prática fazer deploy da layer e da aplicação ao mesmo tempo
+- [AWS Layers prontas para uso](https://github.com/mthenw/awesome-layers)
+
+- Invoke com Docker simulando ambiente AWS:
+  - `sls invoke local --docker -f hello`
+  - Necessário ter Docker instalado
+- Ver exemplos de utilização em `demo06/`

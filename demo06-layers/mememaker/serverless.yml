@@ -1,0 +1,33 @@
+service: mememaker
+frameworkVersion: "2"
+configValidationMode: error
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  lambdaHashingVersion: 20201221
+
+package:
+  individually: true
+  excludeDevDependencies: true
+  patterns:
+    - "!${__dirname}/dependencies.zip"
+    - "!${__dirname}/dependencies"
+    - "!${__dirname}/mocks"
+
+functions:
+  mememaker:
+    handler: app/handler.mememaker
+    layers:
+      - { Ref: GmLibraryLambdaLayer }
+    events:
+      - http:
+          method: get
+          path: mememaker
+          cors: true
+
+layers:
+  GmLibrary: # GraphicsMagick
+    path: dependencies
+    package:
+      artifact: dependencies.zip
