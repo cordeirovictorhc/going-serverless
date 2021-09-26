@@ -54,6 +54,15 @@ npm i aws-sdk
 - Invoke com opção de ambiente:
   - `sls invoke local -f commit-message-scheduler -s prod`
 
+## Demo07.1: Tooling
+
+- **Plugins**
+
+  - [serverless-offline](https://www.npmjs.com/package/serverless-offline)
+  - [serverless-mocha-plugin](https://www.npmjs.com/package/serverless-mocha-plugin)
+    - Cria boilerplate de teste da função automaticamente
+      - `sls create test -f hello`
+
 # AWS Lambda Layers
 
 - Executar nossos apps no runtime da AWS Lambda
@@ -65,3 +74,10 @@ npm i aws-sdk
   - `sls invoke local --docker -f hello`
   - Necessário ter Docker instalado
 - Ver exemplos de utilização em `demo06/`
+
+# LocalStack
+
+- [Cheat Sheet](https://lobster1234.github.io/2017/04/05/working-with-localstack-command-line/)
+- `docker-compose up -d localstack`
+- `docker logs CONTAINER_ID -f`
+- `docker-compose up --build app`
